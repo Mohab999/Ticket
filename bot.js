@@ -369,7 +369,7 @@ client.login('NTEyNzQ5NTQ4MjU5NzcwMzcw.Ds-CIg.oJouMLa0-O3EiUYz545FVGogWJk');
 
 
 client.on('message', message => {
-    var prefix = "$";
+    var prefix = "*";
     
         if (message.author.id === client.user.id) return;
         if (message.guild) {
