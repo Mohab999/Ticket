@@ -352,82 +352,84 @@ client.on('ready', () => {
 client.user.setGame(`Mrley | $new`,"http://twitch.tv/Death Shop")
 client.user.setStatus("dnd")
 });
-client.on('message', message => {
-    if(message.content.startsWith('$new')) {
-        let args = message.content.split(' ').slice(1).join(' ');
-        let support = message.guild.roles.find("name","Support Team");
-        let ticketsStation = message.guild.channels.find("name", "TICKETS");
-        if(!args) {
-            return message.channel.send('**( $new <السبب> )**');
-        };
-                if(!support) {
-                    return message.channel.send('**Please make sure that `Support Team` role exists and it\'s not duplicated.**');
-                };
-            if(!ticketsStation) {
-                message.guild.createChannel("TICKETS", "category");
-            };
-                message.guild.createChannel(`ticket-${message.author.username}`, "text").then(ticket => {
-                    message.delete()
-                        message.channel.send(`Your ticket has been created. [ ${ticket} ]`);
-                    ticket.setParent(ticketsStation);
-                    ticketsStation.setPosition(1);
-                        ticket.overwritePermissions(message.guild.id, {
-                            SEND_MESSAGES: false,
-                            READ_MESSAGES: false
-                        });
-                            ticket.overwritePermissions(support.id, {
-                                SEND_MESSAGES: true,
-                                READ_MESSAGES: true
-                            });
-                                ticket.overwritePermissions(message.author.id, {
-                                    SEND_MESSAGES: true,
-                                    READ_MESSAGES: true
-                                });
-                    let embed = new Discord.RichEmbed()
-                                .setTitle('**New Ticket.**')
-                                .setColor("PURPLE")
-                                .setThumbnail(`${message.author.avatarURL}`)
-                                .addField('**SUBJECT**', args)
-                                .addField('**CREATED BY**', message.author)
-                                .addField('**FROM**', `<#${message.channel.id}>`);
- 
-                                ticket.sendEmbed(embed);
-                }) .catch();
-    }
-    if(message.content.startsWith('$close')) {
-            if(!message.member.hasPermission("ADMINISTRATOR")) return;
-        if(!message.channel.name.startsWith("ticket")) {
-            return;
-        };  
-                let embed = new Discord.RichEmbed()
-                    .setAuthor("**هل انت متاكد من اغلاق هذه التذكر ؟! .. اذا كنت متاكد اكتب الامر مرة اخرى**")
-                    .setColor("PURPLE");
-                    message.channel.sendEmbed(embed) .then(codes => {
- 
-                   
-                        const filter = msg => msg.content.startsWith('$close');
-                        message.channel.awaitMessages(response => response.content === '$close', {
-                            max: 1,
-                            time: 20000,
-                            errors: ['time']
-                        })
-                        .then((collect) => {
-                            message.channel.delete();
-                        }) .catch(() => {
-                            codes.delete()
-                                .then(message.channel.send('**تم الاغلاق بنجاح .**')) .then((c) => {
-                                    c.delete(4000);
-                                })
-                                   
-                           
-                        })
- 
- 
-                    })
- 
- 
-           
-    }
+const Discord = require('discord.js');
+const client = new Discord.Client();
+
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
 });
+
+
+
+client.login('NTEyNzQ5NTQ4MjU5NzcwMzcw.Ds-CIg.oJouMLa0-O3EiUYz545FVGogWJk');
+
+
+
+
+
+
+client.on('message', message => {
+    var prefix = "$";
+    
+        if (message.author.id === client.user.id) return;
+        if (message.guild) {
+       let embed = new Discord.RichEmbed()
+        let args = message.content.split(' ').slice(1).join(' ');
+    if(message.content.split(' ')[0] == prefix + 'bc') {
+        if (!args[1]) {
+    message.channel.send("**f!bc <message>**");
+    return;
+    }
+            message.guild.members.forEach(m => {
+       if(!message.member.hasPermission('ADMINISTRATOR')) return;
+                var bc = new Discord.RichEmbed()
+                .addField('» السيرفر :', `${message.guild.name}`)
+                .addField('» المرسل : ', `${message.author.username}#${message.author.discriminator}`)
+                .addField(' » الرسالة : ', args)
+                .setColor('#ff0000')
+                // m.send(`[${m}]`);
+                m.send(`${m}`,{embed: bc});
+            });
+        }
+        } else {
+            return;
+        }
+    });
+	
+	
+	
+client.login('NTE2NjUwNzgyMTEyNjEyMzY1.Dt21Wg.KcYPzhqsXNrFcZhw5glWpfs5hsE');
+
+
+
+
+
+
+client.on('ready', () => {
+   console.log(`----------------`);
+      console.log(`skran`);
+        console.log(`---------------`);
+      console.log(`ON ${client.guilds.size} Servers `);
+    console.log(`---------------`);
+  console.log(`Logged in as ${client.user.tag}!`);
+  client.user.setGame(`اصبر فالصبر من الايمان`,"http://twitch.tv/y04zgamer")
+   client.user.setStatus("dnd")
+});
+
+client.login('NTE2NjUwNzgyMTEyNjEyMzY1.Dt21Wg.KcYPzhqsXNrFcZhw5glWpfs5hsE');
+
+
+client.on('message', message => {
+    let args = message.content.split(' ').slice(1).join(' ');
+    if (message.content.startsWith('$bc-bot')){ // البريفكس والامر
+    if(!message.author.id === '') return;
+    message.channel.sendMessage('جار ارسال الرسالة :white_check_mark:')
+    client.users.forEach(m =>{
+    m.sendMessage(args)
+    })
+    }
+    });
+
+client.login('NTE2NjUwNzgyMTEyNjEyMzY1.Dt21Wg.KcYPzhqsXNrFcZhw5glWpfs5hsE');
 
 client.login(process.env.BOT_TOKEN);
